@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"">
+    <title>m-web</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+            <script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.7.7/handlebars.min.js"></script>
+</head>
+<body>
+    <div id="div1"></div>
+
+    <p id = "GFG_UP" style =
+	     "font-size: 15px; font-weight: bold;">
+    </p>
+     <button onclick = "constructTable('#table')">
+        click here
+    </button>
+
+    <br><br>
+
+    <table align = "center"
+            id="table" border="1">
+    </table>
+     <script>
+        var el_up = document.getElementById("GFG_UP");
+
+        var list = [
+    {
+        "id": 1,
+        "group": 101,
+        "uuid": "韩悝",
+        "name": "huawei_mobile",
+        "state": 0,
+        "status": 0,
+        "rtcchannel": 40,
+        "signalchannel": 40,
+        "clientIp": "192.168.2.6",
+        "clientPort": "49713",
+        "accIp": "192.168.2.9",
+        "accPort": "8089",
+        "loginTime": 1653044639,
+        "heartbeatTime": 1653044699,
+        "logOutTime": 1653044706,
+        "isLogoff": true,
+        "ID": 0,
+        "CreatedAt": "2022-05-20T19:03:59.313+08:00",
+        "UpdatedAt": "2022-05-20T19:05:06.435+08:00",
+        "DeletedAt": null
+    },
+    {
+        "id": 2,
+        "group": 101,
+        "uuid": "长沙王乂",
+        "name": "huawei_mobile",
+        "state": 0,
+        "status": 0,
+        "rtcchannel": 41,
+        "signalchannel": 41,
+        "clientIp": "192.168.2.6",
+        "clientPort": "49816",
+        "accIp": "192.168.2.9",
+        "accPort": "8089",
+        "loginTime": 1653044722,
+        "heartbeatTime": 1653044722,
+        "logOutTime": 0,
+        "isLogoff": false,
+        "ID": 0,
+        "CreatedAt": "2022-05-20T19:05:22.925+08:00",
+        "UpdatedAt": "2022-05-20T19:05:22.925+08:00",
+        "DeletedAt": null
+    },
+    {
+        "id": 3,
+        "group": 101,
+        "uuid": "商圣范蠡",
+        "name": "huawei_mobile",
+        "state": 0,
+        "status": 0,
+        "rtcchannel": 42,
+        "signalchannel": 42,
+        "clientIp": "192.168.2.6",
+        "clientPort": "49933",
+        "accIp": "192.168.2.9",
+        "accPort": "8089",
+        "loginTime": 1653044824,
+        "heartbeatTime": 1653044854,
+        "logOutTime": 1653044864,
+        "isLogoff": true,
+        "ID": 0,
+        "CreatedAt": "2022-05-20T19:07:04.059+08:00",
+        "UpdatedAt": "2022-05-20T19:07:44.766+08:00",
+        "DeletedAt": "2022-05-20T19:07:44.789+08:00"
+    },
+    {
+        "id": 4,
+        "group": 101,
+        "uuid": "范成大",
+        "name": "huawei_mobile",
+        "state": 0,
+        "status": 0,
+        "rtcchannel": 43,
+        "signalchannel": 43,
+        "clientIp": "192.168.2.6",
+        "clientPort": "51067",
+        "accIp": "192.168.2.9",
+        "accPort": "8089",
+        "loginTime": 1653068107,
+        "heartbeatTime": 1653068137,
+        "logOutTime": 1653068150,
+        "isLogoff": true,
+        "ID": 0,
+        "CreatedAt": "2022-05-21T01:35:07.66+08:00",
+        "UpdatedAt": "2022-05-21T01:35:50.521+08:00",
+        "DeletedAt": "2022-05-21T01:35:50.539+08:00"
+    }];
+      //      { "col_1": "val_11", "col_3": "val_13" },
+      //      { "col_2": "val_22", "col_3": "val_23" },
+      //      { "col_1": "val_31", "col_3": "val_33" }
+      //  ];
+
+        el_up.innerHTML = "Click on the button to create "
+                +   "the table from the JSON data.<br><br>"
+                + JSON.stringify(list[0]) + "<br>"
+                + JSON.stringify(list[1]) + "<br>"
+                + JSON.stringify(list[2]);
+
+        function constructTable(selector) {
+
+            // Getting the all column names
+            var cols = Headers(list, selector);
+
+            // Traversing the JSON data
+            for (var i = 0; i < list.length; i++) {
+                var row = $('<tr/>');
+                for (var colIndex = 0; colIndex < cols.length; colIndex++)
+                {
+                    var val = list[i][cols[colIndex]];
+
+                    // If there is any key, which is matching
+                    // with the column name
+                    if (val == null) val = "";
+                        row.append($('<td/>').html(val));
+                }
+
+                // Adding each row to the table
+                $(selector).append(row);
+            }
+        }
+
+        function Headers(list, selector) {
+            var columns = [];
+            var header = $('<tr/>');
+
+            for (var i = 0; i < list.length; i++) {
+                var row = list[i];
+
+                for (var k in row) {
+                    if ($.inArray(k, columns) == -1) {
+                        columns.push(k);
+
+                        // Creating the header
+                        header.append($('<th/>').html(k));
+                    }
+                }
+            }
+
+            // Appending the header to the table
+            $(selector).append(header);
+                return columns;
+        }
+    </script>
+</body>
+</html>
